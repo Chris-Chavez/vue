@@ -52,12 +52,8 @@ export default {
                         params: this.genero,
                         onComplete: (response) => {
                             console.log(response)
-                            this.$notify({
-                            type: 'success',
-                            title: response.data.mensaje,
-                            });
                             this.$router.push({
-                                name: 'Home'
+                                name: 'Generos'
                             })
                         },
                         onError: (error) =>{

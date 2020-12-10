@@ -1,7 +1,7 @@
 <template>
  <div>
       <h1>Editar Generos</h1>
-   <b-form @submit.prevent="guardarPersona">
+   <b-form @submit.prevent="guardarGenero">
        
     <Input
     v-model="genero.Genero"
@@ -44,7 +44,7 @@ export default {
     
     methods: {
         ...mapActions(['obtenerGenero', 'editarGenero']),
-        guardarPersona() {
+        guardarGenero() {
             if(this.validacionNombre) {
                 this.erroresValidacion = false
                 console.log(this.genero);
@@ -53,15 +53,12 @@ export default {
                 id: this.genero.Id,
                 params: this.genero,
                 onComplete: (response) => {
-                  this.$notify({
-                    type: 'success',
-                    title: response.data.mensaje,
-                  });
                   this.$router.push({
-                    name: 'Home'
-                  })
+                    name: 'Generos'
+                  });
                 },
                 onError: (error) => {
+                  console.log(error)
                   this.$notify({
                     type: 'error',
                     title: error.response.data.mensaje,

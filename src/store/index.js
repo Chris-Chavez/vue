@@ -64,12 +64,12 @@ export default new Vuex.Store({
       .catch(onError)
     },
       obtenerPelicula({commit}, { id, onComplete, onError}) {
-      axios.get(`http://localhost:3000/peliculas/${id}`)
+      axios.get(`http://localhost:3000/peliculas/EditarP/${id}`)
       .then(onComplete)
       .catch(onError)
     },
     editarPelicula({commit}, {id, params, onComplete, onError}) {
-      axios.put(`http://localhost:3000/peliculas/${id}`, params)
+      axios.put(`http://localhost:3000/peliculas/EditarP/${id}`, params)
       .then(onComplete)
       .catch(onError)
     },

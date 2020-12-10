@@ -49,8 +49,7 @@ const routes = [
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/Generos.vue')
     }
-  }
-  ,
+  },
     {
     path: '/Generos/EditarG/:id',
     name: 'EditarG',
@@ -60,7 +59,17 @@ const routes = [
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/EditarG.vue')
     }
+  },
+  {
+  path: '/peliculas/EditarP/:id',
+  name: 'EditarP',
+  // route level code-splitting
+  // this generates a separate chunk (about.[hash].js) for this route
+  // which is lazy-loaded when the route is visited.
+  component: function () {
+    return import(/* webpackChunkName: "about" */ '../views/EditarP.vue')
   }
+}
 ]
 
 const router = new VueRouter({

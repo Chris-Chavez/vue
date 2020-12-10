@@ -37,6 +37,50 @@ rutas.get('/Generos/EditarG/:id', (req, res) =>{
 }
 );
 
+rutas.put('/Generos/EditarG/:id', (req, res) =>{
+    if(BD) {
+        const {id} = req.params;
+        const genero = req.body;
+        let sql = 'UPDATE generos set ? where Id = ?';
+        BD.query(sql, [genero, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+
+                let mensaje = "";
+                if(rows.changedRows === 0)
+                     mensaje="La informacion es la misma"
+                else
+                    mensaje="Genero modificada con exito"
+
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+);
+rutas.delete('/Generos/:id', (req, res) =>{
+    if(BD){
+        const {id} = req.params;
+        let sql = 'DELETE FROM Generos where Id = ?';
+        BD.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje="";
+                if(rows.affectedRows === 0){
+                    mensaje="Genero no encontrado "
+                }else {
+                    mensaje="Genero eliminado con exito!"
+                }
+
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+);
+
 rutas.post('/agregar-genero', (req, res) =>{
     if(BD){
         const genero= req.body;
@@ -54,6 +98,7 @@ rutas.post('/agregar-genero', (req, res) =>{
     
     }
 });
+
 rutas.post('/agregar-peliculas', (req, res) =>{
     if(BD){
         const pelicula= req.body;
@@ -78,33 +123,10 @@ rutas.post('/agregar-peliculas', (req, res) =>{
     }
 });
 
-rutas.get('/Generos/EditarG/:id',
-(req, res) =>{
-    if(BD) {
-        const {id} = req.params;
-        const genero = req.body;
-        let sql = 'UPDATE genero set ? where id = ?';
-        BD.query(sql, [genero, id], (err, rows) => {
-            if(err){
-                res.json(err)
-            } else {
 
-                let mensaje = "";
-                if(rows.changedRows === 0)
-                     mensaje="La informacion es la misma"
-                else
-                    mensaje="Genero modificada con exito"
-
-                res.json({error: false, data: rows, mensaje: mensaje})
-            }
-        })
-    }
-}
-)
-
-rutas.get('/Peliculas', (req, res) =>{
+rutas.get('/peliculas', (req, res) =>{
     if(BD){
-        let sql = 'select * from PELICULAS';
+        let sql = 'select * from peliculas';
         BD.query(sql, (err, tareas) => {
             if(err){
                 res.send(err)
@@ -115,37 +137,69 @@ rutas.get('/Peliculas', (req, res) =>{
     }
 }
 );
-
-
-rutas.get('/Peliculas/:id', (req, res) =>{
+rutas.get('/peliculas/EditarP/:id', (req, res) =>{
     if(BD){
-        const tarea = req.params.id;
-        let sql = `SELECT * FROM tareas WHERE id=${tarea}`;
-        BD.query(sql, (err, tareas) => {
-            if(err) {
+        const { id } = req.params;
+        let sql=`select * from peliculas where Id = ${BD.escape(id)}`;
+        BD.query(sql, (err,persona) => {
+            if(err){
                 res.json(err)
             } else {
-                res.json(tareas)
-            }
-        })
-    }
-});
-
-rutas.get('/Peliculas/borrar/:id',
-(req, res) =>{
-    if(BD){
-        const tarea = req.params.id;
-        let sql = `DELETE FROM tareas WHERE id=${tarea}`;
-        BD.query(sql, (err, tareas) => {
-            if(err) {
-                res.json(err)
-            } else {
-                res.json(tareas)
+                let mensaje="";
+                if(persona===undefined || persona.length === 0)
+                mensaje="persona no encontrada"
+                res.json({error:false,data:persona,mensaje:mensaje})
+              
             }
         })
     }
 }
-)
+);
+
+rutas.put('/peliculas/EditarP/:id', (req, res) =>{
+    if(BD) {
+        const {id} = req.params;
+        const genero = req.body;
+        let sql = 'UPDATE peliculas set ? where Id = ?';
+        BD.query(sql, [genero, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+
+                let mensaje = "";
+                if(rows.changedRows === 0)
+                     mensaje="La informacion es la misma"
+                else
+                    mensaje="pelicula modificada con exito"
+
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+);
+rutas.delete('/peliculas/:id', (req, res) =>{
+    if(BD){
+        const {id} = req.params;
+        let sql = 'DELETE FROM peliculas where Id = ?';
+        BD.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje="";
+                if(rows.affectedRows === 0){
+                    mensaje="pelicula no encontrada "
+                }else {
+                    mensaje="pelicula eliminada con exito!"
+                }
+
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+);
+
 
 
 

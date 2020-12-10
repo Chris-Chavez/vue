@@ -78,12 +78,8 @@ export default {
                         params: this.Pelicula,
                         onComplete: (response) => {
                             console.log(response)
-                            this.$notify({
-                            type: 'success',
-                            title: response.data.mensaje,
-                            });
                             this.$router.push({
-                                name: 'Home'
+                                name: 'peliculas'
                             })
                         },
                         onError: (error) =>{

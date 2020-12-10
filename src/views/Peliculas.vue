@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       campos: [
-        { key: 'ID', label: 'Clave'},
+        { key: 'Id', label: 'Clave'},
         { key: 'Titulo', label: 'Titulo'},
         { key: 'Director', label: 'Director', formatter: value => {
             return value || "Sin información"
@@ -64,13 +64,13 @@ export default {
     ...mapGetters(['allPeliculas', 'getLoading'])
   },
   methods: {
-    ...mapActions(['setPeliculas', 'eliminarPersona']),
+    ...mapActions(['setPeliculas', 'eliminarPelicula']),
     onEditar(item) {
       console.log(item);
       this.$router.push({
-        name: 'Editar',
+        name: 'EditarP',
         params: {
-          id: item.item.id
+          id: item.item.Id
         }
       })
         },
@@ -86,14 +86,10 @@ export default {
         })
           .then(value => {
             if(value) {
-              this.eliminarPersona({
-                id: item.item.id,
+              this.eliminarPelicula({
+                id: item.item.Id,
                 onComplete: (response) => {
-                  this.$notify({
-                    type: 'success',
-                    title: response.data.mensaje
-                  })
-                  setTimeout(() => this.setPersonas(), 1000)
+                  setTimeout(() => this.setPeliculas(), 1000)
                 },
                 onError: (error) => {
                   this.$notify({

@@ -35,7 +35,7 @@
 import Table from '../components/Table'
 import { mapActions, mapGetters } from 'vuex'
 export default {
-  name: 'Home',
+  name: 'Generos',
   components: {
     Table
   },
@@ -77,11 +77,7 @@ export default {
               this.eliminarGenero({
                 id: item.item.Id,
                 onComplete: (response) => {
-                  this.$notify({
-                    type: 'success',
-                    title: response.data.mensaje
-                  })
-                  setTimeout(() => this.setPersonas(), 1000)
+                  setTimeout(() => this.setGeneros(), 1000)
                 },
                 onError: (error) => {
                   this.$notify({
